@@ -3,7 +3,6 @@ require("@nomiclabs/hardhat-etherscan");
 require('dotenv').config();
 
 const { BNB_TEST_URL, PRIVATE_KEY } = process.env;
-console.log('BNB_TEST_URL: ', BNB_TEST_URL);
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
