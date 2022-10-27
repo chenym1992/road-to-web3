@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/chenym1992/road-to-web3#readme",
   "workspaces": [
+    "buy-me-a-coffee-frontend",
     "2. How to Build \"Buy Me a Coffee\" DeFi dapp"
   ]
 }
