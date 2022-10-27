@@ -1,4 +1,4 @@
-# Sample Hardhat Project
+# 2. How to Build "Buy Me a Coffee" DeFi dapp
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
