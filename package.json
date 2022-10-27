@@ -20,6 +20,7 @@
   "workspaces": [
     "1-how-to-develop-an-nft-smart-contract-erc721",
     "2-how-to-build-buy-me-a-coffee-defi-dapp",
+    "3-how-to-make-nfts-with-on-chain-metadata-hardhat-and-javascript",
     "buy-me-a-coffee-frontend"
   ]
 }

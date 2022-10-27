@@ -1,0 +1,21 @@
+{
+  "name": "3-how-to-make-nfts-with-on-chain-metadata-hardhat-and-javascript",
+  "version": "1.0.0",
+  "description": "how-to-make-nfts-with-on-chain-metadata-hardhat-and-javascript",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenym1992/road-to-web3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chenym1992/road-to-web3/issues"
+  },
+  "homepage": "https://github.com/chenym1992/road-to-web3#readme"
+}
