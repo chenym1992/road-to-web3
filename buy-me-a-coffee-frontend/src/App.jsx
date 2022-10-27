@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./App.module.css";
-import { abi } from '../../2. How to Build "Buy Me a Coffee" DeFi dapp/artifacts/contracts/BuyMeACoffee.sol/BuyMeACoffee.json';
+import { abi } from '../../2-how-to-build-buy-me-a-coffee-defi-dapp/artifacts/contracts/BuyMeACoffee.sol/BuyMeACoffee.json';
 import { ethers } from "ethers";
 function App() {
   // Contract Address & ABI
