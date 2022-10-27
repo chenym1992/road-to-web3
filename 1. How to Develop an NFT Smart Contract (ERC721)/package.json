@@ -1,7 +1,7 @@
 {
-  "name": "road-to-web3-project",
+  "name": "how-to-develop-an-nft-smart-contract-erc721",
   "version": "1.0.0",
-  "description": "web3全栈开发工程师学习之路",
+  "description": "[goto study](https://docs.alchemy.com/docs/how-to-develop-an-nft-smart-contract-erc721-with-alchemy)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,9 +17,7 @@
     "url": "https://github.com/chenym1992/road-to-web3/issues"
   },
   "homepage": "https://github.com/chenym1992/road-to-web3#readme",
-  "workspaces": [
-    "buy-me-a-coffee-frontend",
-    "2. How to Build \"Buy Me a Coffee\" DeFi dapp",
-    "1. How to Develop an NFT Smart Contract (ERC721)"
-  ]
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3"
+  }
 }
