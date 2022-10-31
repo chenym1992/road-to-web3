@@ -9,7 +9,7 @@ const hre = require("hardhat");
 async function main() {
 
   const BullBear = await hre.ethers.getContractFactory("BullBear");
-  const bullBear = await BullBear.deploy();
+  const bullBear = await BullBear.deploy(60,'0x5741306c21795FdCBb9b265Ea0255F499DFe515C');
 
   await bullBear.deployed();
 

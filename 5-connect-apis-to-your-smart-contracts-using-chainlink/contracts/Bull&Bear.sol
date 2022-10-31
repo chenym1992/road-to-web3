@@ -7,10 +7,26 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract BullBear is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+// Chainlink Imports
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+// This import includes functions from both ./KeeperBase.sol and
+// ./interfaces/KeeperCompatibleInterface.sol
+import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
+
+contract BullBear is ERC721, ERC721Enumerable, ERC721URIStorage,KeeperCompatibleInterface, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
+
+    AggregatorV3Interface public pricefeed;
+
+    /**
+    * Use an interval in seconds and a timestamp to slow execution of Upkeep
+    */
+    uint public /* immutable */ interval; 
+    uint public lastTimeStamp;
+
+    int256 public currentPrice;
 
     // IPFS URIs for the dynamic nft graphics/metadata.
     // NOTE: These connect to my IPFS Companion node.
@@ -26,7 +42,20 @@ contract BullBear is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         "https://ipfs.io/ipfs/QmbKhBXVWmwrYsTPFYfroR2N7NAekAMxHUVg2CWks7i9qj?filename=simple_bear.json"
     ];
 
-    constructor() ERC721("Bull&Bear", "BBTK") {}
+    event TokensUpdated(string marketTrend);
+
+    constructor(uint updateInterval, address _pricefeed) ERC721("Bull&Bear", "BBTK") {
+        interval = updateInterval;// Set the keeper update interval
+        lastTimeStamp = block.timestamp;//  seconds since unix epoch
+
+         // set the price feed address to
+        // BTC/USD Price Feed Contract Address on BSCTEST: https://testnet.bscscan.com/address/0x5741306c21795FdCBb9b265Ea0255F499DFe515C
+        // or the MockPriceFeed Contract
+        pricefeed = AggregatorV3Interface(_pricefeed);
+
+        currentPrice = getLatestPrice();
+
+    }
 
     function safeMint(address to) public {
         // Current counter value will be the minted token's token ID.
@@ -42,6 +71,74 @@ contract BullBear is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         string memory defaultUri = bullUrisIpfs[0];
         _setTokenURI(tokenId, defaultUri);
     }
+
+    function checkUpkeep(bytes calldata ) external view override returns (bool upkeepNeeded,bytes memory /*performData*/) {
+        upkeepNeeded = (block.timestamp - lastTimeStamp) > interval;
+        revert();
+    }
+
+    function performUpkeep(bytes calldata) external override {
+        //We highly recommend revalidating the upkeep in the performUpkeep function
+        if ((block.timestamp - lastTimeStamp) > interval ) {
+            lastTimeStamp = block.timestamp;         
+            int latestPrice =  getLatestPrice();
+            if (latestPrice == currentPrice) {
+                return;
+            }
+            if (latestPrice < currentPrice) {
+                updateAllTokenUris("bear");
+
+            } else {
+                updateAllTokenUris("bull");
+            }
+
+            // update currentPrice
+            currentPrice = latestPrice;
+        }
+
+       
+    }
+
+    function setPriceFeed(address newFeed) public onlyOwner {
+        pricefeed = AggregatorV3Interface(newFeed);
+    }
+    function setInterval(uint256 newInterval) public onlyOwner {
+        interval = newInterval;
+    }
+    
+
+    function compareStrings(string memory a, string memory b) internal pure returns (bool) {
+        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+    }
+
+    // Helpers
+    function getLatestPrice() public view returns (int256) {
+         (
+            /*uint80 roundID*/,
+            int price,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = pricefeed.latestRoundData();
+
+        return price; //  example price returned 3034715771688
+    }
+
+    function updateAllTokenUris(string memory trend) internal {
+        if (compareStrings("bear", trend)) {
+            for (uint i = 0; i < _tokenIdCounter.current() ; i++) {
+                _setTokenURI(i, bearUrisIpfs[0]);
+            } 
+            
+        } else {    
+
+            for (uint i = 0; i < _tokenIdCounter.current() ; i++) {
+                _setTokenURI(i, bullUrisIpfs[0]);
+            }  
+        }   
+        emit TokensUpdated(trend);
+    }
+
 
     // The following functions are overrides required by Solidity.
 
@@ -93,4 +190,5 @@ contract BullBear is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     function setBearUrisIpfs(string[] memory _bearUrisIpfs) public {
         bearUrisIpfs = _bearUrisIpfs;
     }
+
 }
