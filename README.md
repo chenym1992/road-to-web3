@@ -9,3 +9,7 @@ web3全栈开发工程师学习之路
 [3. How to Make NFTs with On-Chain Metadata - Hardhat and JavaScript](https://github.com/chenym1992/road-to-web3/tree/main/3-how-to-make-nfts-with-on-chain-metadata-hardhat-and-javascript)  
 
 [4. How to Create an NFT Gallery](https://github.com/chenym1992/road-to-web3/tree/main/4-how-to-create-an-nft-gallery)
+
+[5. Connect APIs to your Smart Contracts using Chainlink](https://github.com/chenym1992/road-to-web3/tree/main/5-connect-apis-to-your-smart-contracts-using-chainlink)
+
+[6. How to Build a Staking Dapp](https://github.com/chenym1992/road-to-web3/tree/main/6-how-to-build-a-staking-dapp)
