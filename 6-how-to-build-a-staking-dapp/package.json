@@ -1,0 +1,21 @@
+{
+  "name": "6-how-to-build-a-staking-dapp",
+  "version": "1.0.0",
+  "description": "how-to-build-a-staking-dapp",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenym1992/road-to-web3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chenym1992/road-to-web3/issues"
+  },
+  "homepage": "https://github.com/chenym1992/road-to-web3#readme"
+}
